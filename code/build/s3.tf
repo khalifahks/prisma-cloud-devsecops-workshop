@@ -13,8 +13,6 @@ resource "aws_s3_bucket" "dev_s3" {
   #checkov:skip=CKV_AWS_21: "Ensure all data stored in the S3 bucket have versioning enabled"
   #checkov:skip=CKV_AWS_144: "Ensure that S3 bucket has cross-region replication enabled"
   #checkov:skip=CKV_AWS_145: "Ensure that S3 buckets are encrypted with KMS by default"
-  #checkov:skip=CKV2_AWS_65: "Ensure access control lists for S3 buckets are disabled"
-
   tags = {
     Environment          = "Dev"
     yor_name             = "dev_s3"
@@ -47,6 +45,7 @@ resource "aws_s3_bucket_public_access_block" "dev_s3" {
 
 resource "aws_s3_bucket_acl" "dev_s3" {
   depends_on = [aws_s3_bucket_ownership_controls.dev_s3]
+  #checkov:skip=CKV2_AWS_65: "Ensure access control lists for S3 buckets are disabled"
 
   bucket = aws_s3_bucket.dev_s3.id
   acl    = "private"
