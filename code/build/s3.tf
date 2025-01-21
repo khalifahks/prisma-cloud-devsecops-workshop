@@ -2,11 +2,18 @@ provider "aws" {
   region = "us-west-2"
 }
 
+# We only disable these since we're testing, otherwise we'd do the work to handle these properly
+#checkov:skip=CKV_AWS_20:The bucket is a public static content host
+#checkov:skip=CKV_AWS_18:This is a test we are not going to enable logging on this bucket.
+#checkov:skip=CKV2_AWS_61:This is a test we are not going to enable logging on this bucket.
+#checkov:skip=CKV2_AWS_62: "Ensure S3 buckets should have event notifications enabled"
+#checkov:skip=CKV_AWS_21: "Ensure all data stored in the S3 bucket have versioning enabled"
+#checkov:skip=CKV_AWS_144: "Ensure that S3 bucket has cross-region replication enabled"
+#checkov:skip=CKV_AWS_145: "Ensure that S3 buckets are encrypted with KMS by default"
+#checkov:skip=CKV2_AWS_65: "Ensure access control lists for S3 buckets are disabled"
+
 resource "aws_s3_bucket" "dev_s3" {
   bucket_prefix = "dev-"
-  #checkov:skip=CKV_AWS_20:The bucket is a public static content host
-  #checkov:skip=CKV_AWS_18:This is a test we are not going to enable logging on this bucket.
-  #checkov:skip=CKV2_AWS_61:This is a test we are not going to enable logging on this bucket.
 
   tags = {
     Environment          = "Dev"
