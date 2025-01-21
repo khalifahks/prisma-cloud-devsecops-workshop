@@ -4,6 +4,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "dev_s3" {
   bucket_prefix = "dev-"
+  #checkov:skip=CKV_AWS_20:The bucket is a public static content host
 
   tags = {
     Environment          = "Dev"
@@ -24,4 +25,27 @@ resource "aws_s3_bucket_ownership_controls" "dev_s3" {
   rule {
     object_ownership = "BucketOwnerPreferred"
   }
+}
+
+resource "aws_s3_bucket_public_access_block" "dev_s3" {
+  bucket = aws_s3_bucket.dev_s3.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_ownership_controls" "dev_s3" {
+  bucket = aws_s3_bucket.example.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "dev_s3" {
+  depends_on = [aws_s3_bucket_ownership_controls.dev_s3]
+
+  bucket = aws_s3_bucket.dev_s3.id
+  acl    = "private"
 }
