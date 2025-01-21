@@ -5,6 +5,8 @@ provider "aws" {
 resource "aws_s3_bucket" "dev_s3" {
   bucket_prefix = "dev-"
   #checkov:skip=CKV_AWS_20:The bucket is a public static content host
+  #checkov:skip=CKV_AWS_18:This is a test we are not going to enable logging on this bucket.
+  #checkov:skip=CKV2_AWS_61:This is a test we are not going to enable logging on this bucket.
 
   tags = {
     Environment          = "Dev"
