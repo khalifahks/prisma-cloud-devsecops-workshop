@@ -12,7 +12,7 @@ resource "aws_s3_bucket" "dev_s3" {
     Environment          = "Dev"
     yor_name             = "dev_s3"
     yor_trace            = "9dcfc222-a038-48ac-9e52-3e494f9e88c5"
-    git_commit           = "e92233c3c0e48cb489e6960ec9bcab243fc25f21"
+    git_commit           = "3affd5c996f5a732cca5f2096eaf5ee77b4b9b22"
     git_file             = "code/build/s3.tf"
     git_last_modified_at = "2025-01-21 19:22:24"
     git_last_modified_by = "khalifahks@kohirens.com"
